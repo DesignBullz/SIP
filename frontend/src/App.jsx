@@ -54,8 +54,8 @@
 //       {/* Label and Value */}
 //       <div className="flex items-center justify-between">
 //         <label
-//           className="text-xs font-medium text-gray-700"
-//           style={{ whiteSpace: "nowrap" }} // Prevent wrapping of label
+//           className="text-xs font-medium text-gray-700 truncate"
+//           style={{ maxWidth: "60%" }}
 //         >
 //           {label}
 //         </label>
@@ -66,7 +66,7 @@
 //           min={min}
 //           max={max}
 //           step={step}
-//           className="w-32 p-1 text-right bg-gray-300 focus:ring-red-500 focus:outline-none text-sm"
+//           className="w-24 p-1 text-right bg-gray-300 focus:ring-red-500 focus:outline-none text-sm"
 //         />
 //       </div>
 
@@ -78,19 +78,19 @@
 //         step={step}
 //         value={value}
 //         onChange={onChange}
-//         className="w-full bg-white rounded-full appearance-none cursor-pointer "
+//         className="w-full bg-white rounded-full appearance-none cursor-pointer"
 //         style={{
-//           accentColor: "#a91527", // Red thumb
-//           height: "3px", // Thinner slider height
-//           borderRadius: "15px", // Sleek rounded edges
+//           accentColor: "#a91527",
+//           height: "3px",
+//           borderRadius: "15px",
 //         }}
 //       />
 //     </div>
 //   );
 
 //   const statement = (
-//     <div className="bg-white p-6  space-y-4">
-//       <div className="text-center text-body text-sm text-gray-700">
+//     <div className="bg-white p-4 space-y-4 text-center">
+//       <div className="text-body text-sm text-gray-700">
 //         <p>
 //           For your dream car, you may need{" "}
 //           <span className="font-bold text-base" style={{ color: "#a91527" }}>
@@ -111,13 +111,13 @@
 //           to fund your dream car.
 //         </p>
 //       </div>
-//       <div className="text-center text-body  text-gray-800 font-semibold">
+//       <div className="text-body text-gray-800 font-semibold">
 //         To reach your goal, you will need to start an SIP of{" "}
 //         <span className="font-bold text-2xl" style={{ color: "#a91527" }}>
 //           ₹{Number(sipAmount).toLocaleString()}
 //         </span>
 //       </div>
-//       <div className="text-center text-body text-gray-800 font-semibold">
+//       <div className="text-body text-gray-800 font-semibold">
 //         Dream car ka sapna skip nahi, SIP karo.
 //       </div>
 //     </div>
@@ -125,13 +125,13 @@
 
 //   return (
 //     <div
-//       className="min-h-screen flex items-center justify-center p-6"
+//       className="min-h-screen flex items-center justify-center p-4 sm:p-6"
 //       style={{ backgroundColor: "#a91527" }}
 //     >
-//       <div className="bg-white w-full max-w-7xl rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-3 gap-8 p-8">
-//         {/* Left Section - Image */}
-//         <div className="flex items-center justify-center">
-//           <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl rounded-xl overflow-hidden shadow-lg">
+//       <div className="bg-white w-full max-w-7xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 p-4 sm:p-8">
+//         {/* Image Section */}
+//         <div className="flex items-center justify-center mb-4 md:mb-0">
+//           <div className="w-full max-w-md rounded-xl overflow-hidden shadow-lg">
 //             <img
 //               src={car}
 //               alt="Dream Car"
@@ -140,22 +140,22 @@
 //           </div>
 //         </div>
 
-//         {/* Right Section - Car Planning Calculator */}
-//         <div className="col-span-2 space-y-6">
-//           {" "}
-//           {/* Adjust this to take up more space */}
-//           <div className="flex items-center justify-center space-x-3 mb-6">
+//         {/* Calculator Section */}
+//         <div className="md:col-span-2 space-y-4 sm:space-y-6">
+//           {/* Title */}
+//           <div className="flex items-center justify-center space-x-3 mb-4">
 //             <FaCar
-//               className="font-bold text-4xl"
+//               className="font-bold text-2xl sm:text-4xl"
 //               style={{ color: "#a91527" }}
 //             />
-//             <h1 className="text-4xl font-bold text-gray-800">
+//             <h1 className="text-2xl sm:text-4xl font-bold text-gray-800">
 //               Dream Car Planner
 //             </h1>
 //           </div>
+
 //           {/* Input Sections */}
-//           <div className="space-y-6">
-//             <div className="grid md:grid-cols-2 gap-6">
+//           <div className="space-y-4 sm:space-y-6">
+//             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
 //               {renderInputBox(
 //                 <FaClock
 //                   className="font-bold text-xl"
@@ -180,7 +180,7 @@
 //                 10000
 //               )}
 //             </div>
-//             <div className="grid md:grid-cols-2 gap-6">
+//             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
 //               {renderInputBox(
 //                 <FaPercentage
 //                   className="font-bold text-xl"
@@ -205,8 +205,9 @@
 //               )}
 //             </div>
 //           </div>
+
 //           {/* Statement Section */}
-//           <div className="mt-8">{statement}</div>
+//           <div className="mt-4 sm:mt-8">{statement}</div>
 //         </div>
 //       </div>
 //     </div>
@@ -238,19 +239,24 @@ const CarCalculator = () => {
   const [additionalAmount, setAdditionalAmount] = useState(0);
 
   const calculate = () => {
+    // Calculate future cost of the car with inflation
     const futureCostValue =
       currentCost * Math.pow(1 + inflationRate / 100, years);
 
+    // Calculate monthly SIP amount
     const monthlyRate = expectedReturns / 12 / 100;
     const months = years * 12;
     const sipValue =
       (futureCostValue * monthlyRate) / (Math.pow(1 + monthlyRate, months) - 1);
 
+    // Correctly calculate appreciated current investment
     const lumpSumValue =
-      futureCostValue / Math.pow(1 + expectedReturns / 100, years);
+      currentCost * Math.pow(1 + expectedReturns / 100, years);
 
+    // Calculate additional amount needed
     const additionalNeeded = futureCostValue - lumpSumValue;
 
+    // Update state with calculated values
     setFutureCost(futureCostValue.toFixed(2));
     setSIPAmount(sipValue.toFixed(2));
     setLumpSumAmount(lumpSumValue.toFixed(2));
@@ -271,8 +277,8 @@ const CarCalculator = () => {
       {/* Label and Value */}
       <div className="flex items-center justify-between">
         <label
-          className="text-xs font-medium text-gray-700"
-          style={{ whiteSpace: "nowrap" }} // Prevent wrapping of label
+          className="text-xs font-medium text-gray-700 truncate"
+          style={{ maxWidth: "60%" }}
         >
           {label}
         </label>
@@ -283,7 +289,7 @@ const CarCalculator = () => {
           min={min}
           max={max}
           step={step}
-          className="w-24 sm:w-32 p-1 text-right bg-gray-300 focus:ring-red-500 focus:outline-none text-sm"
+          className="w-24 p-1 text-right bg-gray-300 focus:ring-red-500 focus:outline-none text-sm"
         />
       </div>
 
@@ -295,19 +301,19 @@ const CarCalculator = () => {
         step={step}
         value={value}
         onChange={onChange}
-        className="w-full bg-white rounded-full appearance-none cursor-pointer "
+        className="w-full bg-white rounded-full appearance-none cursor-pointer"
         style={{
-          accentColor: "#a91527", // Red thumb
-          height: "3px", // Thinner slider height
-          borderRadius: "15px", // Sleek rounded edges
+          accentColor: "#a91527",
+          height: "3px",
+          borderRadius: "15px",
         }}
       />
     </div>
   );
 
   const statement = (
-    <div className="bg-white p-6  space-y-4">
-      <div className="text-center text-body text-sm text-gray-700">
+    <div className="bg-white p-4 space-y-4 text-center">
+      <div className="text-body text-sm text-gray-700">
         <p>
           For your dream car, you may need{" "}
           <span className="font-bold text-base" style={{ color: "#a91527" }}>
@@ -328,13 +334,13 @@ const CarCalculator = () => {
           to fund your dream car.
         </p>
       </div>
-      <div className="text-center text-body  text-gray-800 font-semibold">
+      <div className="text-body text-gray-800 font-semibold">
         To reach your goal, you will need to start an SIP of{" "}
         <span className="font-bold text-2xl" style={{ color: "#a91527" }}>
           ₹{Number(sipAmount).toLocaleString()}
         </span>
       </div>
-      <div className="text-center text-body text-gray-800 font-semibold">
+      <div className="text-body text-gray-800 font-semibold">
         Dream car ka sapna skip nahi, SIP karo.
       </div>
     </div>
@@ -342,13 +348,13 @@ const CarCalculator = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-6"
+      className="min-h-screen flex items-center justify-center p-4 sm:p-6"
       style={{ backgroundColor: "#a91527" }}
     >
-      <div className="bg-white w-full max-w-7xl rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-3 gap-8 p-8">
-        {/* Left Section - Image */}
-        <div className="flex items-center justify-center">
-          <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl rounded-xl overflow-hidden shadow-lg">
+      <div className="bg-white w-full max-w-7xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 p-4 sm:p-8">
+        {/* Image Section */}
+        <div className="flex items-center justify-center mb-4 md:mb-0">
+          <div className="w-full max-w-md rounded-xl overflow-hidden shadow-lg">
             <img
               src={car}
               alt="Dream Car"
@@ -357,22 +363,22 @@ const CarCalculator = () => {
           </div>
         </div>
 
-        {/* Right Section - Car Planning Calculator */}
-        <div className="col-span-2 space-y-6">
-          {" "}
-          {/* Adjust this to take up more space */}
-          <div className="flex items-center justify-center space-x-3 mb-6">
+        {/* Calculator Section */}
+        <div className="md:col-span-2 space-y-4 sm:space-y-6">
+          {/* Title */}
+          <div className="flex items-center justify-center space-x-3 mb-4">
             <FaCar
-              className="font-bold text-4xl"
+              className="font-bold text-2xl sm:text-4xl"
               style={{ color: "#a91527" }}
             />
-            <h1 className="text-4xl font-bold text-gray-800">
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-800">
               Dream Car Planner
             </h1>
           </div>
+
           {/* Input Sections */}
-          <div className="space-y-6">
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {renderInputBox(
                 <FaClock
                   className="font-bold text-xl"
@@ -397,7 +403,7 @@ const CarCalculator = () => {
                 10000
               )}
             </div>
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {renderInputBox(
                 <FaPercentage
                   className="font-bold text-xl"
@@ -422,8 +428,9 @@ const CarCalculator = () => {
               )}
             </div>
           </div>
+
           {/* Statement Section */}
-          <div className="mt-8">{statement}</div>
+          <div className="mt-4 sm:mt-8">{statement}</div>
         </div>
       </div>
     </div>

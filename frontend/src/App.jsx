@@ -214,7 +214,7 @@ const CarCalculator = () => {
       </div>
       <div className="text-body text-gray-800 font-semibold">
         To reach your goal, you will need to start an SIP of{" "}
-        <span className="font-bold text-xl" style={{ color: "#a91527" }}>
+        <span className="font-bold text-base" style={{ color: "#a91527" }}>
           ₹{Number(sipAmount).toLocaleString()}
         </span>
       </div>

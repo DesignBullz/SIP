@@ -22,7 +22,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FaUmbrellaBeach } from "react-icons/fa"; // Importing an example icon
-import retirementPlan from "../assets/r.jpg";
+import retirementPlan from "./assets/r.jpg";
 
 const RetirementCalculator = () => {
   const [currentAge, setCurrentAge] = useState(44);

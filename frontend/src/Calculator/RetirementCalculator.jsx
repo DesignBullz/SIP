@@ -66,7 +66,7 @@ const RetirementCalculator = () => {
     // const adjustedAnnualExpense = adjustedMonthlyExpense * 12;
 
     // Total corpus needed for retirement
-    const corpusNeeded = adjustedMonthlyExpense / 0.01;
+    const corpusNeeded = adjustedMonthlyExpense / 0.0075;
 
     // Future value of the current investment after growth (disclaimerReturns rate of return)
     const futureValue =
